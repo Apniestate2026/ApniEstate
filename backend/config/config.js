@@ -1,7 +1,7 @@
 export const appConfig = {
   PORT: process.env.PORT || 4000,
-  NODE_ENV: process.env.NODE_ENV || "development",
-  BACKEND_URL: process.env.BACKEND_URL || "http://localhost:4000",
+  NODE_ENV: process.env.NODE_ENV || process.env.NODEENV || "development",
+  BACKEND_URL: process.env.BACKEND_URL || process.env.BACKENDURL || "http://localhost:4000",
 
   MONGO_URI: process.env.MONGO_URI,
 
@@ -14,7 +14,7 @@ export const appConfig = {
   ADMIN_EMAIL: process.env.ADMIN_EMAIL ,
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
 
-  WEBSITE_URL: process.env.WEBSITE_URL || "http://localhost:5173",
+  WEBSITE_URL: process.env.WEBSITE_URL || process.env.WEBSITEURL || "https://apniestate.com",
   
   IMAGEKIT_PUBLIC_KEY: process.env.IMAGEKIT_PUBLIC_KEY,
   IMAGEKIT_PRIVATE_KEY: process.env.IMAGEKIT_PRIVATE_KEY,
