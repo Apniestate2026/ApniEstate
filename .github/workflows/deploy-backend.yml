@@ -11,6 +11,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.2.0
@@ -20,7 +21,15 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             set -e
+
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+            node -v
+            npm -v
+            pm2 -v
+
             cd ~/ApniEstate/backend
             git pull origin main
-            /home/ubuntu/.nvm/versions/node/v24.13.0/bin/npm install --production
-            /home/ubuntu/.nvm/versions/node/v24.13.0/bin/pm2 restart aebe
+            npm install --production
+            pm2 restart aebe
