@@ -47,9 +47,8 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    // allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    
+
     if (allowedOrigins.includes(origin) || allowedOrigins.includes(origin.replace(/\/$/, ''))) {
       callback(null, true);
     } else {
@@ -59,7 +58,13 @@ app.use(cors({
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+ allowedHeaders: [
+   'Content-Type',
+   'Authorization',
+   'X-Requested-With',
+   'Accept',
+   'email'
+ ],
   exposedHeaders: ['set-cookie']
 }));
 
