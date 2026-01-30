@@ -112,12 +112,21 @@ export const adminProtect = async (req, res, next) => {
     }
 
 
-    if (
+    const isAdmin1 =
+      email === config.ADMIN_EMAIL_1 &&
+      password === config.ADMIN_PASSWORD_1;
+    
+    const isAdmin2 =
+      email === config.ADMIN_EMAIL_2 &&
+      password === config.ADMIN_PASSWORD_2;
+
+    const isLegacyAdmin = 
       email === process.env.ADMIN_EMAIL &&
-      password === process.env.ADMIN_PASSWORD
-    ) {
+      password === process.env.ADMIN_PASSWORD;
+
+    if (isAdmin1 || isAdmin2 || isLegacyAdmin) {
       req.admin = {
-        email: process.env.ADMIN_EMAIL,
+        email: email,
         role: "admin",
       };
       next();

@@ -13,15 +13,24 @@ export const adminLogin = asyncHandler(async (req, res) => {
   }
 
   // Check against environment variables
-  if (
+  const isAdmin1 =
+    email === process.env.ADMIN_EMAIL_1 &&
+    password === process.env.ADMIN_PASSWORD_1;
+
+  const isAdmin2 =
+    email === process.env.ADMIN_EMAIL_2 &&
+    password === process.env.ADMIN_PASSWORD_2;
+
+  const isLegacyAdmin =
     email === process.env.ADMIN_EMAIL &&
-    password === process.env.ADMIN_PASSWORD
-  ) {
+    password === process.env.ADMIN_PASSWORD;
+
+  if (isAdmin1 || isAdmin2 || isLegacyAdmin) {
     res.json({
       success: true,
       message: 'Admin login successful',
       data: {
-        email: process.env.ADMIN_EMAIL,
+        email: email,
         role: 'admin',
         token: 'admin-authenticated',
       },

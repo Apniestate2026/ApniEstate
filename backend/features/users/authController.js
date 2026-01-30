@@ -127,21 +127,25 @@ export const adminLogin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   // Check env-configured admin credentials
-  if (email !== config.ADMIN_EMAIL || password !== config.ADMIN_PASSWORD) {
+  const isAdmin1 = email === config.ADMIN_EMAIL_1 && password === config.ADMIN_PASSWORD_1;
+  const isAdmin2 = email === config.ADMIN_EMAIL_2 && password === config.ADMIN_PASSWORD_2;
+  const isLegacyAdmin = email === config.ADMIN_EMAIL && password === config.ADMIN_PASSWORD;
+
+  if (!isAdmin1 && !isAdmin2 && !isLegacyAdmin) {
     res.status(401);
     throw new Error('Invalid admin credentials');
   }
 
   // Ensure an admin user exists in DB
   let adminUser = await User.findOne({
-    email: config.ADMIN_EMAIL.toLowerCase(),
+    email: email.toLowerCase(),
   });
 
   if (!adminUser) {
     adminUser = await User.create({
-      name: 'Admin',
-      email: config.ADMIN_EMAIL,
-      password: config.ADMIN_PASSWORD,
+      name: email === config.ADMIN_EMAIL_1 ? 'Admin 1' : (email === config.ADMIN_EMAIL_2 ? 'Admin 2' : 'Admin'),
+      email: email,
+      password: password,
       role: 'admin',
     });
   }
