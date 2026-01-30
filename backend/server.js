@@ -46,27 +46,16 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin) || allowedOrigins.includes(origin.replace(/\/$/, ''))) {
-      callback(null, true);
-    } else {
-      console.warn(`CORS blocked for origin: ${origin}`);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
- allowedHeaders: [
-   'Content-Type',
-   'Authorization',
-   'X-Requested-With',
-   'Accept',
-   'email'
- ],
-  exposedHeaders: ['set-cookie']
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://ae-dev-fe.onrender.com',
+    'https://apniestate.com',
+    'https://apniestate-fe.onrender.com'
+  ],
+  credentials: true
 }));
+
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
