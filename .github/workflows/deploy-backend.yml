@@ -32,4 +32,7 @@ jobs:
             cd ~/ApniEstate/backend
             git pull origin main
             npm install --production
-            pm2 restart aebe
+            
+            # Restart with PM2 - Try to restart, if fails (not exists), then start
+            pm2 restart aebe || pm2 start server.js --name aebe
+            pm2 save
