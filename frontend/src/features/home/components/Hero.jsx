@@ -9,6 +9,7 @@ import {
 import { useState, useEffect } from "react";
 import heroimage from "../../../assets/images/heroimage.png";
 import tsLogo from "../../../assets/tsLogo.jpg";
+import TripuraStartup from "./TripuraStartup";
 
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
@@ -308,6 +309,9 @@ const Hero = () => {
             animate="visible"
             className="text-center"
           >
+            {/* ================= CREDENTIAL BADGES ================= */}
+            <TripuraStartup />
+
             {/* Heading */}
             <motion.div variants={itemVariants} className="mb-8">
               <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold mb-4">
@@ -384,6 +388,7 @@ const Hero = () => {
                 </motion.div>
               ))}
             </motion.div>
+
           </motion.div>
         </div>
       </div>
